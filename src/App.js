@@ -1,10 +1,12 @@
-import Navbar from "./components/Navbar";
+import Form from "./components/Form";
+import NavbarMenu from "./components/NavbarMenu";
+import './styles/styles.css'
 
 function App() {
   return (
     <>
-    <Navbar/>
-    <h1>Clean Project</h1>
+    <NavbarMenu/>
+    <Form/>
     </>
   );
 }
