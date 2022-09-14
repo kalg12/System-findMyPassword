@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, {useEffect} from "react";
 import "../styles/styles.css";
 import Swal from 'sweetalert2';
@@ -29,10 +30,10 @@ const Form = () => {
           for (let i = 0; i < 17; i++)
             lngSuma = lngSuma + diccionario.indexOf(curp17.charAt(i)) * (18 - i);
           lngDigito = 10 - (lngSuma % 10);
-          if (lngDigito === 10) return 0;
+          if (lngDigito == 10) return 0;
           return lngDigito;
         }
-        if (validado[2] !== digitoVerificador(validado[1])) return false;
+        if (validado[2] != digitoVerificador(validado[1])) return false;
         return true; //Validado
       }
 
