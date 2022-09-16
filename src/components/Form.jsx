@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import "../styles/styles.css";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+/* const Data = require('../models/AccessData'); */
 
 const Form = () => {
 
@@ -63,6 +64,13 @@ const Form = () => {
             curp.value = curp.value.toUpperCase();
         });
     }, []);
+
+    //Hacemos uso de la clase Data para traer datos de la BD y mostrarlos en consola, la ruta de la clase es /models/AccessData.js
+    
+/*     const data = new Data();
+    data.getAll().then((res) => {
+        console.log(res);
+    }); */
 
 
   return (
