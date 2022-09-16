@@ -3,7 +3,6 @@ import React, {useEffect} from "react";
 import "../styles/styles.css";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
-/* const Data = require('../models/AccessData'); */
 
 const Form = () => {
 
@@ -14,6 +13,45 @@ const Form = () => {
         const curp = document.getElementById("curp").value;
         return curp;
     }
+
+    const validateCurp = (event) => {
+      event.preventDefault();
+      const curp = getCurp(event);
+
+      if (curpValida(curp)) {
+
+      //Hacemos fetch a la API http://localhost:4000/:CURP para obtener los datos del usuario
+      const getData = async () => {
+        const curp = getCurp(event);
+        const response = await fetch(`http://localhost:4000/${curp}`);
+        const data = await response.json();
+        return {
+          correo: data[0].correo,
+          contrasenia: data[0].contrasenia
+        }
+      }
+
+      getData().then((data) => {
+        MySwal.fire({
+          title: 'CURP Válida',
+          text: `La CURP ingresada es válida, tus datos de acceso a la plataforma son:
+          email: ${data.correo}
+          contraseña: ${data.contrasenia}
+          `,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+      })
+      })
+
+      } else {
+          MySwal.fire({
+              title: 'CURP Inválida',
+              text: 'La CURP ingresada es inválida',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+          })
+      }
+  }
 
     function curpValida(curp) {
         let re =
@@ -38,40 +76,12 @@ const Form = () => {
         return true; //Validado
       }
 
-    const validateCurp = (event) => {
-        event.preventDefault();
-        const curp = getCurp(event);
-        if (curpValida(curp)) {
-            MySwal.fire({
-                title: 'CURP Válida',
-                text: 'La CURP ingresada es válida, tus datos de acceso a la plataforma son: ',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            })
-        } else {
-            MySwal.fire({
-                title: 'CURP Inválida',
-                text: 'La CURP ingresada es inválida',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            })
-        }
-    }
-
     useEffect(() => {
         const curp = document.getElementById("curp");
         curp.addEventListener("keyup", () => {
             curp.value = curp.value.toUpperCase();
         });
     }, []);
-
-    //Hacemos uso de la clase Data para traer datos de la BD y mostrarlos en consola, la ruta de la clase es /models/AccessData.js
-    
-/*     const data = new Data();
-    data.getAll().then((res) => {
-        console.log(res);
-    }); */
-
 
   return (
     <>
