@@ -23,7 +23,7 @@ const Form = () => {
       //Hacemos fetch a la API http://localhost:4000/:CURP para obtener los datos del usuario
       const getData = async () => {
         const curp = getCurp(event);
-        const response = await fetch(`http://localhost:4000/${curp}`);
+        const response = await fetch(`https://backend-system-findmypassword.onrender.com/${curp}`);
         const data = await response.json();
         return {
           correo: data[0].correo,
