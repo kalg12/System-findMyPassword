@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import "../styles/styles.css";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
+const API = 'https://backend-system-findmypassword.onrender.com/'
 
 const Form = () => {
 
@@ -20,10 +21,9 @@ const Form = () => {
 
       if (curpValida(curp)) {
 
-      //Hacemos fetch a la API http://localhost:4000/:CURP para obtener los datos del usuario
       const getData = async () => {
         const curp = getCurp(event);
-        const response = await fetch(`https://backend-system-findmypassword-production.up.railway.app/${curp}`);
+        const response = await fetch(`${API}${curp}`);
         const data = await response.json();
         return {
           correo: data[0].correo,
